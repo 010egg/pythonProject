@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    <button id="toggle-comments">显示/隐藏评论</button>
+    <div id="comments-section" class="hidden">
+        <h2>评论:</h2>
+        {% for comment in article.comments %}
+            <p>{{ comment.content }} <a href="{{ url_for('like_comment', comment_id=comment.id) }}">点赞 ({{ comment.upvotes }})</a></p>
+        {% endfor %}
+    </div>
+    <form method="post">
+        <textarea name="content" required></textarea>
+        <button type="submit">提交评论</button>
+    </form>
+</body>
+</html>
